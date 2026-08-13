@@ -3,246 +3,466 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semarak HUT RI Bersama KLASE</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <meta name="description" content="Semarak HUT RI Ke-81 Bersama KLASE Auto Graha — Lomba, Fashion Show, Doorprize Mewah!">
+  <meta property="og:title" content="Semarak HUT RI Bersama KLASE">
+  <meta property="og:description" content="Gabung meriahkan HUT RI-81 dengan lomba seru, fashion show, dan doorprize mewah!">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇲🇨</text></svg>">
+  <title>SEMARAK HUT RI 81 × KLASE // CYBER BRUTAL</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Cabinet+Grotesk:wght@800;900&display=swap" rel="stylesheet">
+  <link="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #0B0F19;
-      --card-bg: #FFFFFF;
-      --ink: #0F172A;
-      --pop-red: #E11D48;
-      --pop-yellow: #FFC72C;
-      --pop-cyan: #06B6D4;
-      --pop-green: #10B981;
+      --bg-void: #05060A;
+      --bg-panel: #FFFFFF;
+      --ink: #0A0E1A;
+      --ink-soft: #3A4150;
+      --line: #1A1F2E;
+      --red: #FF2E5A;
+      --yellow: #FFD500;
+      --cyan: #00E5FF;
+      --green: #00FF9D;
+      --purple: #B14DFF;
+      --grid: rgba(0, 229, 255, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-dark);
+    html, body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-void);
       color: var(--ink);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient Glow Background */
-    .glow-bg {
+    /* === AMBIENT LAYERS === */
+    .ambient {
       position: fixed;
       inset: 0;
-      background: 
-        radial-gradient(circle at 20% 20%, rgba(225, 29, 72, 0.35) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 199, 44, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
+      overflow: hidden;
     }
 
+    /* Animated Grid */
+    .grid-bg {
+      position: absolute;
+      inset: -50%;
+      background-image: 
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridMove 24s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { transform: translate(0,0) rotate(0deg); }
+      100% { transform: translate(48px, 48px) rotate(0deg); }
+    }
+
+    /* Radial Glow */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+    }
+    .glow.r { width: 500px; height: 500px; background: var(--red); top: -10%; left: -10%; animation: floatA 12s ease-in-out infinite; }
+    .glow.y { width: 420px; height: 420px; background: var(--yellow); bottom: -10%; right: -5%; animation: floatB 15s ease-in-out infinite; }
+    .glow.c { width: 380px; height: 380px; background: var(--cyan); top: 40%; left: 50%; animation: floatA 18s ease-in-out infinite reverse; }
+
+    @keyframes floatA {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(40px, -30px); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(-30px, 40px); }
+    }
+
+    /* Noise Texture */
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    /* Scan Lines */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 229, 255, 0.03) 0px,
+        rgba(0, 229, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+    }
+
+    /* Floating Orbs */
+    .orbs {
+      position: absolute;
+      inset: 0;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.6;
+    }
+    .orb.o1 { width: 10px; height: 10px; background: var(--yellow); top: 15%; left: 20%; animation: orbFloat 8s ease-in-out infinite; }
+    .orb.o2 { width: 6px; height: 6px; background: var(--red); top: 60%; left: 10%; animation: orbFloat 10s ease-in-out infinite 1s; }
+    .orb.o3 { width: 8px; height: 8px; background: var(--cyan); top: 30%; right: 15%; animation: orbFloat 9s ease-in-out infinite 2s; }
+    .orb.o4 { width: 5px; height: 5px; background: var(--green); bottom: 20%; right: 30%; animation: orbFloat 11s ease-in-out infinite 0.5s; }
+    .orb.o5 { width: 12px; height: 12px; background: var(--purple); bottom: 35%; left: 45%; animation: orbFloat 7s ease-in-out infinite 1.5s; filter: blur(3px); }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.2); }
+      66% { transform: translate(-20px, 30px) scale(0.8); }
+    }
+
+    /* === WRAP === */
     .wrap {
       position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 520px;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
     }
 
-    /* Header Bar */
+    /* === TOP BAR === */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      gap: 8px;
+      margin-bottom: 20px;
+      gap: 12px;
     }
 
-    .badge-pill {
-      background: var(--pop-red);
-      color: white;
-      font-weight: 900;
-      font-size: 11px;
-      padding: 8px 16px;
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(10, 14, 26, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid var(--cyan);
+      padding: 8px 14px;
       border-radius: 99px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--cyan);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      border: 2px solid var(--ink);
-      box-shadow: 3px 3px 0px var(--pop-yellow);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
     }
 
-    .btn-audio {
-      background: #1E293B;
-      color: var(--pop-cyan);
-      border: 2px solid var(--pop-cyan);
-      font-weight: 800;
-      font-size: 12px;
-      padding: 6px 14px;
+    .top-actions { display: flex; gap: 8px; }
+
+    .chip-btn {
+      background: rgba(10, 14, 26, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid var(--ink);
+      color: white;
+      padding: 8px 14px;
       border-radius: 99px;
+      font-weight: 800;
+      font-size: 11px;
       cursor: pointer;
       transition: all 0.2s;
-    }
-    .btn-audio:hover { transform: scale(1.05); }
-
-    /* Neo-Brutalist Main Container */
-    .main-card {
-      background: var(--card-bg);
-      border: 4px solid var(--ink);
-      border-radius: 28px;
-      padding: 24px 20px 20px 20px;
-      box-shadow: 8px 12px 0px var(--pop-red), 16px 20px 0px var(--pop-yellow);
-      position: relative;
-      overflow: visible;
-      min-height: 480px;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .chip-btn:hover { transform: translateY(-1px); border-color: var(--cyan); color: var(--cyan); }
+    .chip-btn.on { background: var(--cyan); color: var(--ink); border-color: var(--cyan); }
+
+    /* === MAIN GRID LAYOUT === */
+    .stage {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      min-height: 620px;
     }
 
-    /* Karakter PNG Smooth Transition Container */
-    .char-canva {
+    @media (max-width: 900px) {
+      .stage { grid-template-columns: 1fr; min-height: auto; }
+    }
+
+    /* Left: Main Content Card */
+    .content-card {
+      background: var(--bg-panel);
+      border: 3px solid var(--ink);
+      border-radius: 24px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 10px 10px 0 var(--red);
+      transition: box-shadow 0.3s;
+    }
+
+    /* Holographic Shimmer Overlay */
+    .content-card::before {
+      content: '';
       position: absolute;
-      right: -10px;
-      bottom: -12px;
-      width: 240px;
-      z-index: 10;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 30%, rgba(0,229,255,0.08) 45%, rgba(255,46,90,0.08) 55%, transparent 70%);
+      animation: shimmer 8s linear infinite;
       pointer-events: none;
     }
-
-    .char-canva img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.25));
-      /* Smoother transition */
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
-    .char-canva img.fade-out {
-      opacity: 0;
-      transform: translateY(12px) scale(0.95);
+    /* Corner Brackets Decoration */
+    .corner {
+      position: absolute;
+      width: 20px; height: 20px;
+      border: 2px solid var(--ink);
+      z-index: 3;
+    }
+    .corner.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .corner.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+    .corner.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+    .corner.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+    /* Right: Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    @media (max-width: 480px) {
-      .char-canva {
-        width: 190px;
-        right: -5px;
-        bottom: -10px;
-      }
+    .side-card {
+      background: var(--bg-panel);
+      border: 2.5px solid var(--ink);
+      border-radius: 18px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Typography */
+    .side-card.dark {
+      background: var(--ink);
+      color: white;
+    }
+
+    /* === TYPOGRAPHY === */
     .display-title {
-      font-family: 'Cabinet Grotesk', sans-serif;
+      font-family: 'Unbounded', sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      line-height: 0.95;
-      font-size: clamp(32px, 8vw, 48px);
-      letter-spacing: -0.02em;
-    }
-
-    .highlight-red {
-      background: var(--pop-red);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 12px;
-      border: 3px solid var(--ink);
-      display: inline-block;
-      box-shadow: 4px 4px 0px var(--ink);
-      transform: rotate(-1deg);
-    }
-
-    .highlight-yellow {
-      background: var(--pop-yellow);
+      line-height: 0.92;
+      font-size: clamp(30px, 5.2vw, 52px);
+      letter-spacing: -0.03em;
       color: var(--ink);
-      padding: 4px 12px;
-      border-radius: 12px;
-      border: 3px solid var(--ink);
-      display: inline-block;
-      box-shadow: 4px 4px 0px var(--ink);
-      transform: rotate(1.5deg);
     }
 
-    /* Feature Card Inside Slide */
+    .display-title.small {
+      font-size: clamp(24px, 4vw, 36px);
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1.5px solid var(--ink);
+    }
+    .tag.red { background: var(--red); color: white; }
+    .tag.yellow { background: var(--yellow); color: var(--ink); }
+    .tag.cyan { background: var(--cyan); color: var(--ink); }
+    .tag.dark { background: var(--ink); color: white; }
+
+    .highlight {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 8px;
+      border: 2.5px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .highlight.red { background: var(--red); color: white; transform: rotate(-1.5deg); }
+    .highlight.yellow { background: var(--yellow); color: var(--ink); transform: rotate(1.5deg); }
+    .highlight.cyan { background: var(--cyan); color: var(--ink); transform: rotate(-1deg); }
+
+    .sub-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      font-weight: 500;
+      margin-top: 14px;
+    }
+
+    /* === HERO === */
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-emoji {
+      font-size: 64px;
+      line-height: 1;
+      display: inline-block;
+      animation: bounce 2s ease-in-out infinite;
+      filter: drop-shadow(4px 4px 0 var(--ink));
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(-4deg); }
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .hero-actions .full { grid-column: span 2; }
+
+    /* === DIGITAL COUNTDOWN === */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .cd-cell {
+      background: var(--ink);
+      color: var(--cyan);
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 10px 4px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.15);
+    }
+    .cd-cell::after {
+      content: '';
+      position: absolute;
+      left: 4px; right: 4px; top: 50%;
+      height: 1px;
+      background: rgba(0, 229, 255, 0.3);
+    }
+    .cd-num {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      line-height: 1;
+      text-shadow: 0 0 10px var(--cyan);
+      position: relative;
+      z-index: 1;
+    }
+    .cd-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(0, 229, 255, 0.7);
+      text-transform: uppercase;
+      margin-top: 6px;
+      letter-spacing: 0.1em;
+    }
+    .cd-cell.live {
+      background: var(--red);
+      color: white;
+    }
+    .cd-cell.live .cd-num { color: white; text-shadow: 0 0 10px white; }
+    .cd-cell.live .cd-unit { color: rgba(255,255,255,0.8); }
+
+    /* === FEATURE CARDS === */
     .feature-card {
-      background: #FFFFFF;
-      border: 3px solid var(--ink);
-      border-radius: 16px;
+      background: white;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
       padding: 12px 14px;
       margin-bottom: 10px;
-      box-shadow: 4px 4px 0px var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
       display: flex;
       align-items: center;
       gap: 12px;
-      width: 60%;
+      transition: all 0.2s;
     }
+    .feature-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
 
-    .feature-card .icon-box {
-      width: 42px;
-      height: 42px;
-      background: var(--pop-yellow);
+    .icon-box {
+      width: 44px; height: 44px;
+      background: var(--yellow);
       border: 2px solid var(--ink);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
       flex-shrink: 0;
     }
+    .icon-box.red { background: var(--red); color: white; }
+    .icon-box.cyan { background: var(--cyan); }
+    .icon-box.green { background: var(--green); }
+    .icon-box.purple { background: var(--purple); color: white; }
 
-    /* Countdown Styling */
-    .countdown-container {
-      display: flex;
-      gap: 6px;
-      margin-top: 6px;
-      margin-bottom: 10px;
-      width: 60%;
-    }
-
-    .countdown-box {
-      flex: 1;
-      background: var(--pop-yellow);
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      padding: 6px 2px;
-      text-align: center;
-      box-shadow: 2px 2px 0px var(--ink);
-    }
-
-    .countdown-num {
-      font-family: 'Cabinet Grotesk', sans-serif;
-      font-size: 15px;
-      font-weight: 900;
-      line-height: 1;
-      color: var(--ink);
-    }
-
-    .countdown-unit {
-      font-size: 8px;
+    .fc-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
       font-weight: 800;
-      color: #475569;
+      color: var(--ink-soft);
       text-transform: uppercase;
-      margin-top: 2px;
+      letter-spacing: 0.08em;
     }
-
-    /* Buttons */
-    .btn-action {
-      background: var(--pop-red);
-      color: white;
-      font-family: 'Cabinet Grotesk', sans-serif;
+    .fc-value {
       font-weight: 900;
-      font-size: 15px;
+      font-size: 14px;
+      color: var(--ink);
+      margin-top: 1px;
+      line-height: 1.2;
+    }
+    .fc-value.big { font-size: 18px; }
+
+    /* === BUTTONS === */
+    .btn {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
       text-transform: uppercase;
-      padding: 12px 18px;
-      border-radius: 14px;
-      border: 3px solid var(--ink);
-      box-shadow: 4px 4px 0px var(--ink);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      padding: 13px 18px;
+      border-radius: 12px;
+      border: 2.5px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
       cursor: pointer;
       transition: all 0.15s;
       display: inline-flex;
@@ -250,364 +470,885 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
-    .btn-action:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px var(--ink);
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+    .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+    .btn.red { background: var(--red); color: white; }
+    .btn.yellow { background: var(--yellow); color: var(--ink); }
+    .btn.cyan { background: var(--cyan); color: var(--ink); }
+    .btn.green { background: var(--green); color: var(--ink); }
+    .btn.ink { background: var(--ink); color: white; }
+    .btn.ghost { background: white; color: var(--ink); }
+    .btn.small { padding: 9px 14px; font-size: 11px; }
+
+    /* === SIDEBAR: CHARACTER === */
+    .char-stage {
+      position: relative;
+      background: var(--ink);
+      border: 2.5px solid var(--ink);
+      border-radius: 18px;
+      padding: 20px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .btn-action:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px var(--ink);
+    .char-stage::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 50% 80%, var(--red) 0%, transparent 40%),
+        radial-gradient(circle at 20% 20%, var(--cyan) 0%, transparent 35%),
+        radial-gradient(circle at 80% 30%, var(--yellow) 0%, transparent 35%);
+      opacity: 0.3;
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%,100% { opacity: 0.25; }
+      50% { opacity: 0.45; }
     }
 
-    .btn-action.yellow { background: var(--pop-yellow); color: var(--ink); }
-    .btn-action.cyan { background: var(--pop-cyan); color: var(--ink); }
-    .btn-action.green { background: var(--pop-green); color: white; }
-
-    /* Footer Logo Layout */
-    .company-logo-footer {
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 2px dashed #CBD5E1;
-      text-align: left;
-      width: 55%;
+    .char-stage::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px);
+      pointer-events: none;
     }
 
-    .company-logo-footer .label {
+    .char-img {
+      max-width: 100%;
+      max-height: 220px;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .char-img.fade-out {
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+    }
+
+    .char-label {
+      position: absolute;
+      top: 12px; left: 12px;
+      z-index: 3;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #64748B;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .char-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
     }
 
-    .logo-grid-vertical {
+    .char-counter {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      z-index: 3;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    /* === SIDEBAR: LOGOS === */
+    .logos-card .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logos-card .label::before {
+      content: '//';
+      color: var(--red);
+    }
+    .logo-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      align-items: flex-start;
     }
-
     .logo-item {
-      height: 26px;
+      height: 32px;
       object-fit: contain;
+      max-width: 100%;
+      filter: grayscale(0);
+      transition: 0.2s;
     }
+    .logo-item:hover { filter: grayscale(0.5); transform: scale(1.02); }
 
-    /* Nav Bar Controls */
+    /* === NAV BAR === */
     .nav-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-top: 18px;
-      background: white;
-      padding: 10px 16px;
+      gap: 10px;
+      margin-top: 16px;
+      background: var(--ink);
+      padding: 10px 14px;
       border-radius: 99px;
-      border: 3px solid var(--ink);
-      box-shadow: 4px 4px 0px var(--pop-yellow);
+      border: 2.5px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--yellow);
     }
-
     .nav-btn {
-      background: #F1F5F9;
+      background: white;
       border: 2px solid var(--ink);
       border-radius: 99px;
-      padding: 6px 16px;
-      font-weight: 800;
-      font-size: 12px;
+      padding: 8px 16px;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
       cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: 0.15s;
     }
+    .nav-btn:hover:not(:disabled) { background: var(--cyan); transform: translateY(-1px); }
     .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-    .nav-btn.primary { background: var(--ink); color: white; }
+    .nav-btn.primary { background: var(--red); color: white; }
+    .nav-btn.primary:hover:not(:disabled) { background: var(--red); box-shadow: 0 0 12px var(--red); }
 
-    .dots-wrap { display: flex; gap: 6px; }
-    .dot-item { width: 10px; height: 10px; border-radius: 99px; background: #CBD5E1; border: 1.5px solid var(--ink); cursor: pointer; transition: 0.2s; }
-    .dot-item.active { background: var(--pop-red); width: 24px; }
+    .dots {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dot.active {
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      width: 24px;
+      border-radius: 4px;
+      border-color: var(--cyan);
+    }
 
-    /* Modals */
-    .modal-backdrop {
+    .progress {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.7;
+      letter-spacing: 0.05em;
+      padding: 10px;
+    }
+    .footer .company {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .footer .slogan {
+      font-style: italic;
+      color: var(--cyan);
+      font-size: 10px;
+    }
+
+    /* === MODAL === */
+    .modal {
       position: fixed;
       inset: 0;
-      background: rgba(11, 15, 25, 0.85);
-      backdrop-filter: blur(6px);
-      z-index: 99;
+      background: rgba(5, 6, 10, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
     }
+    .modal.show { opacity: 1; pointer-events: auto; }
     .modal-card {
       background: white;
-      border: 4px solid var(--ink);
-      border-radius: 24px;
+      border: 3px solid var(--ink);
+      border-radius: 20px;
       padding: 24px;
       width: 100%;
-      max-width: 440px;
-      box-shadow: 8px 8px 0px var(--pop-yellow);
+      max-width: 460px;
+      box-shadow: 10px 10px 0 var(--yellow);
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.95);
+      transition: transform 0.3s;
+    }
+    .modal.show .modal-card { transform: scale(1); }
+
+    .modal-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .modal-sub {
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+      font-weight: 600;
     }
 
-    .input-field {
+    .close-btn {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      border: 2px solid var(--ink);
+      font-weight: 900;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .close-btn:hover { background: var(--red); }
+
+    .field-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .field-label::before {
+      content: '›';
+      color: var(--red);
+      font-size: 14px;
+    }
+
+    .input {
       width: 100%;
       padding: 12px 14px;
       border: 2.5px solid var(--ink);
-      border-radius: 12px;
+      border-radius: 10px;
       font-family: inherit;
       font-weight: 700;
       font-size: 13px;
-      margin-top: 4px;
+      margin-top: 5px;
       margin-bottom: 12px;
       background: #F8FAFC;
       outline: none;
+      transition: 0.15s;
+    }
+    .input:focus { border-color: var(--red); box-shadow: 4px 4px 0 var(--red); }
+
+    .quick-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quick-btn {
+      background: white;
+      border: 2.5px solid var(--ink);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.15s;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .quick-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); background: var(--yellow); }
+    .quick-btn .ico {
+      width: 36px; height: 36px;
+      background: var(--ink);
+      color: var(--cyan);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* === SLIDE TRANSITION === */
+    .slide-inner {
+      animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === DECORATIVE BADGES === */
+    .deco-badge {
+      position: absolute;
+      z-index: 2;
+      background: var(--yellow);
+      color: var(--ink);
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 99px;
+      border: 2px solid var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .deco-badge.red { background: var(--red); color: white; }
+
+    .hero-inner { position: relative; }
+    .hero-inner .deco-badge.top {
+      top: -8px; right: 0;
+      transform: rotate(3deg);
+    }
+
+    /* === STATS ROW === */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .stat {
+      background: var(--ink);
+      color: white;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: 0.1em;
+    }
+
+    /* === HIGHLIGHT BOXES === */
+    .info-box {
+      background: #FFF9D6;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 4px 4px 0 var(--ink);
+      position: relative;
+    }
+    .info-box.red { background: #FFE4EC; }
+    .info-box.cyan { background: #E0FBFF; }
+    .info-box .title {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .info-box .desc {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+
+    /* === GLITCH TEXT === */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .glitch:hover::before {
+      color: var(--cyan);
+      transform: translate(-2px, 0);
+      opacity: 0.6;
+      animation: glitch1 0.3s linear;
+    }
+    .glitch:hover::after {
+      color: var(--red);
+      transform: translate(2px, 0);
+      opacity: 0.6;
+      animation: glitch2 0.3s linear;
+    }
+    @keyframes glitch1 {
+      0%, 100% { clip-path: inset(0 0 100% 0); }
+      20% { clip-path: inset(20% 0 40% 0); }
+      40% { clip-path: inset(60% 0 10% 0); }
+      60% { clip-path: inset(30% 0 50% 0); }
+      80% { clip-path: inset(80% 0 5% 0); }
+    }
+    @keyframes glitch2 {
+      0%, 100% { clip-path: inset(0 0 100% 0); }
+      20% { clip-path: inset(40% 0 30% 0); }
+      40% { clip-path: inset(10% 0 60% 0); }
+      60% { clip-path: inset(50% 0 30% 0); }
+      80% { clip-path: inset(5% 0 80% 0); }
     }
 
     .hidden { display: none !important; }
+
+    /* === Responsive === */
+    @media (max-width: 900px) {
+      .stage { gap: 14px; }
+      .content-card { padding: 22px; }
+      .hero-actions { grid-template-columns: 1fr; }
+      .hero-actions .full { grid-column: span 1; }
+      .char-stage { height: 220px; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .wrap { padding: 12px 10px 30px; }
+      .content-card { padding: 18px; border-radius: 18px; }
+      .side-card { padding: 14px; }
+      .cd-num { font-size: 18px; }
+      .status-chip, .chip-btn { font-size: 10px; padding: 6px 10px; }
+      .top-bar { margin-bottom: 14px; }
+      .nav-btn { padding: 6px 12px; font-size: 10px; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="glow-bg"></div>
+  <!-- AMBIENT BACKGROUND LAYERS -->
+  <div class="ambient">
+    <div class="grid-bg"></div>
+    <div class="glow r"></div>
+    <div class="glow y"></div>
+    <div class="glow c"></div>
+    <div class="orbs">
+      <div class="orb o1"></div>
+      <div class="orb o2"></div>
+      <div class="orb o3"></div>
+      <div class="orb o4"></div>
+      <div class="orb o5"></div>
+    </div>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+  </div>
 
   <div class="wrap">
-    <!-- Header Bar -->
+
+    <!-- TOP BAR -->
     <div class="top-bar">
-      <span class="badge-pill">🔥 HUT RI KE-81</span>
-      <button id="music-btn" class="btn-audio" onclick="toggleAudio()">🎵 Musik On/Off</button>
+      <div class="status-chip">
+        <span class="status-dot"></span>
+        <span>LIVE · HUT RI 81</span>
+      </div>
+      <div class="top-actions">
+        <button class="chip-btn" id="music-btn" onclick="toggleAudio()">
+          <span id="music-ico">🔇</span>
+          <span id="music-txt">MUSIK</span>
+        </button>
+      </div>
     </div>
 
-    <!-- AUDIO BACKSOUND LOKAL -->
-    <audio id="bg-music" loop preload="auto">
+    <audio id="bg-music" loop preload="metadata">
       <source src="musik/HariMerdeka.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Main Neo-Brutalist Container -->
-    <div class="main-card">
+    <!-- STAGE GRID -->
+    <div class="stage">
 
-      <div>
-        <!-- FRONT COVER / HERO SCREEN -->
-        <div id="hero-screen" style="text-align: center; padding: 10px 0 0 0;">
-          
-          <div style="font-size: 48px; margin-bottom: 8px; animation: bounce 1.5s infinite;">🇲🇨⚡</div>
-          
-          <h1 class="display-title">
+      <!-- MAIN CONTENT CARD -->
+      <div class="content-card">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <!-- HERO SCREEN -->
+        <div id="hero-screen" class="hero-inner">
+          <span class="deco-badge red top">⚡ NEW EVENT</span>
+          <div class="hero-top">
+            <span class="tag dark">[ RI × KLASE ]</span>
+            <span class="tag yellow">v81.2026</span>
+          </div>
+
+          <div class="hero-emoji">🇮🇩</div>
+
+          <h1 class="display-title" style="margin-top: 14px;">
             SEMARAK<br>
-            <span class="highlight-red">HUT RI</span><br>
-            BERSAMA<br>
-            <span class="highlight-yellow">KLASE</span>
+            <span class="highlight red glitch" data-text="HUT RI-81">HUT RI-81</span><br>
+            <span style="color: var(--ink-soft); font-size: 0.7em; font-weight: 700;">bersama</span><br>
+            <span class="highlight yellow glitch" data-text="KLASE">KLASE</span>
           </h1>
 
-          <p style="margin-top: 14px; font-weight: 700; color: #475569; font-size: 12px; line-height: 1.5;">
-            Kobarkan semangat kemerdekaan! Mari bergabung meriahkan semarak lomba kemerdekaan, doorprize, dan kejutan seru lainnya.
+          <p class="sub-text">
+            Kobarkan semangat kemerdekaan di event paling heboh tahun ini. Lomba seru, fashion show epic, doorprize mewah, dan kejutan tak terduga menanti kamu!
           </p>
 
-          <!-- Action Buttons -->
-          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-            <button class="btn-action yellow" onclick="startApp()">🚀 Jelajahi Info Acara</button>
-            <button class="btn-action green" onclick="openModalRsvp()">✅ Konfirmasi Kehadiran</button>
-            <button class="btn-action cyan" style="font-size: 13px; padding: 10px;" onclick="openModalTanya()">💬 Tanya Panitia (WA)</button>
+          <div class="stats-row">
+            <div class="stat">
+              <div class="stat-num">5+</div>
+              <div class="stat-label">LOMBA</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">50+</div>
+              <div class="stat-label">DOORPRIZE</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">81</div>
+              <div class="stat-label">TAHUN RI</div>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn red" onclick="startApp()">🚀 Jelajahi Acara</button>
+            <button class="btn yellow" onclick="openModalRsvp()">✅ RSVP Sekarang</button>
+            <button class="btn ghost full" onclick="openModalTanya()">💬 Tanya Panitia via WA</button>
           </div>
         </div>
 
-        <!-- Slide View Container -->
+        <!-- SLIDE VIEW -->
         <div id="slide-view" class="hidden"></div>
       </div>
 
-      <!-- LOGO PERUSAHAAN (HANYA TAMPIL DI HALAMAN SAMPUL) -->
-      <div id="footer-logo" class="company-logo-footer">
-        <div class="label">GROUP COMPANIES & UNITS</div>
-        <div class="logo-grid-vertical">
-          <img src="assets/logo-web.png" alt="Klase Auto Rental" class="logo-item">
-          <img src="assets/logo-gms.png" alt="Graha Mega Solusindo" class="logo-item">
-          <img src="assets/logo-lab.png" alt="Klase Auto Lab" class="logo-item">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+
+        <!-- CHARACTER DISPLAY -->
+        <div class="side-card char-stage">
+          <div class="char-label">AVATAR · LIVE</div>
+          <img id="main-char-img" class="char-img" src="assets/gambar1.png" alt="Karakter HUT RI KLASE" onerror="this.style.display='none'">
+          <div class="char-counter" id="char-counter">01 / 03</div>
         </div>
-      </div>
 
-      <!-- GAMBAR KARAKTER PNG BERGANTI DINAMIS -->
-      <div class="char-canva">
-        <img id="main-char-img" src="assets/gambar1.png" alt="Karakter HUT RI" onerror="this.style.display='none'">
+        <!-- LOGOS -->
+        <div class="side-card logos-card" id="footer-logo">
+          <div class="label">GROUP COMPANIES</div>
+          <div class="logo-list">
+            <img src="assets/logo-web.png" alt="Klase Auto Rental" class="logo-item" onerror="this.style.display='none'">
+            <img src="assets/logo-gms.png" alt="Graha Mega Solusindo" class="logo-item" onerror="this.style.display='none'">
+            <img src="assets/logo-lab.png" alt="Klase Auto Lab" class="logo-item" onerror="this.style.display='none'">
+          </div>
+        </div>
+
+        <!-- QUICK INFO CARD -->
+        <div class="side-card dark">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-family:'JetBrains Mono'; font-size:10px; font-weight:800; color:var(--cyan); letter-spacing:0.1em;">⚡ QUICK INFO</span>
+            <span style="font-family:'JetBrains Mono'; font-size:9px; color:rgba(255,255,255,0.5);">UPD LIVE</span>
+          </div>
+          <div style="font-family:'Unbounded'; font-weight:800; font-size:13px; color:white; margin-bottom:8px;">
+            14 AGUSTUS 2026
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:10px; line-height:1.5;">
+            📍 RPTRA Manunggal, Pesanggrahan<br>
+            🕓 16:00 WIB - Selesai
+          </div>
+          <a href="#" id="quick-maps" target="_blank" class="btn cyan small" style="box-shadow:none;">🗺️ Google Maps</a>
+        </div>
+
       </div>
 
     </div>
 
-    <!-- Navigation Controls -->
+    <!-- NAVIGATION -->
     <div id="nav-wrap" class="nav-bar hidden">
-      <button id="prev-btn" class="nav-btn" onclick="prevSlide()">← Prev</button>
-      <div id="dots-container" class="dots-wrap"></div>
-      <button id="next-btn" class="nav-btn primary" onclick="nextSlide()">Next →</button>
+      <button id="prev-btn" class="nav-btn" onclick="prevSlide()">← PREV</button>
+      <div id="dots-container" class="dots"></div>
+      <span class="progress" id="progress-text">01/05</span>
+      <button id="next-btn" class="nav-btn primary" onclick="nextSlide()">NEXT →</button>
     </div>
 
-    <!-- Slogan Footer -->
-    <p style="text-align: center; color: white; font-size: 11px; margin-top: 14px; font-weight: 700; opacity: 0.85; letter-spacing: 0.05em;">
-      PT. KLASE AUTO GRAHA<br>
-      <span style="font-weight: 500; font-style: italic; color: var(--pop-yellow);">"INTEGRATED MAKE WORK MORE SIMPLE AND QUALITY"</span>
-    </p>
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="company">PT. KLASE AUTO GRAHA</div>
+      <div class="slogan">"INTEGRATED MAKE WORK MORE SIMPLE AND QUALITY"</div>
+    </div>
+
   </div>
 
   <!-- MODAL RSVP -->
-  <div id="modal-rsvp" class="modal-backdrop hidden">
+  <div id="modal-rsvp" class="modal">
     <div class="modal-card">
-      <button onclick="closeModalRsvp()" style="position: absolute; top: 16px; right: 16px; font-weight: 900; border: none; background: none; font-size: 18px; cursor: pointer;">✕</button>
-      <h3 style="font-family:'Cabinet Grotesk'; font-size: 22px; font-weight: 900; text-transform: uppercase;">Form Kehadiran</h3>
-      <p style="font-size: 12px; color: #64748B; margin-bottom: 14px; font-weight: 700;">Konfirmasi kehadiranmu ke Panitia WA sekarang!</p>
+      <button class="close-btn" onclick="closeModalRsvp()">✕</button>
+      <div class="modal-title">Form Kehadiran</div>
+      <p class="modal-sub">Konfirmasi kehadiranmu — data akan dikirim langsung ke Panitia via WhatsApp.</p>
 
       <form onsubmit="submitRsvp(event)">
-        <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Nama Lengkap *</label>
-        <input type="text" id="rsvp-nama" class="input-field" placeholder="Ketik nama kamu..." required>
+        <label class="field-label">Nama Lengkap</label>
+        <input type="text" id="rsvp-nama" class="input" placeholder="Ketik nama kamu..." required>
 
-        <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Unit / Divisi *</label>
-        <select id="rsvp-unit" class="input-field" required>
+        <label class="field-label">Unit / Divisi</label>
+        <select id="rsvp-unit" class="input" required>
           <option value="">-- Pilih Unit --</option>
-          <option value="PT. Klase Auto Graha">PT. Klase Auto Graha</option>
-          <option value="Klase Auto Rental">Klase Auto Rental</option>
-          <option value="Graha Mega Solusindo">Graha Mega Solusindo</option>
-          <option value="Klase Auto Lab">Klase Auto Lab</option>
+          <option>PT. Klase Auto Graha</option>
+          <option>Klase Auto Rental</option>
+          <option>Graha Mega Solusindo</option>
+          <option>Klase Auto Lab</option>
         </select>
 
-        <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Status Kehadiran *</label>
-        <select id="rsvp-status" class="input-field" required>
-          <option value="Hadir Siap Meriahkan!">Siap Hadir!</option>
-          <option value="Izin Tidak Bisa Hadir">Izin / Berhalangan</option>
+        <label class="field-label">Status Kehadiran</label>
+        <select id="rsvp-status" class="input" required>
+          <option value="Hadir Siap Meriahkan!">✅ Siap Hadir</option>
+          <option value="Izin Tidak Bisa Hadir">❌ Berhalangan</option>
         </select>
 
-        <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Ikut Fashion Show? *</label>
-        <select id="rsvp-fash" class="input-field" required>
-          <option value="Ikut Fashion Show!">Gass Ikut Fashion Show!</option>
-          <option value="Supporter Setia">Jadi Supporter Aja</option>
+        <label class="field-label">Fashion Show</label>
+        <select id="rsvp-fash" class="input" required>
+          <option value="Ikut Fashion Show!">💃 Gass Ikut!</option>
+          <option value="Supporter Setia">👏 Supporter Aja</option>
         </select>
 
-        <button type="submit" class="btn-action green" style="margin-top: 6px;">🚀 Kirim ke WA Panitia</button>
+        <button type="submit" class="btn red" style="margin-top:4px;">🚀 Kirim ke WA Panitia</button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL TANYA WA -->
-  <div id="modal-tanya" class="modal-backdrop hidden">
+  <!-- MODAL TANYA -->
+  <div id="modal-tanya" class="modal">
     <div class="modal-card">
-      <button onclick="closeModalTanya()" style="position: absolute; top: 16px; right: 16px; font-weight: 900; border: none; background: none; font-size: 18px; cursor: pointer;">✕</button>
-      <h3 style="font-family:'Cabinet Grotesk'; font-size: 22px; font-weight: 900; text-transform: uppercase;">Pilih Pertanyaan</h3>
-      <p style="font-size: 12px; color: #64748B; margin-bottom: 14px; font-weight: 700;">Klik opsi langsung untuk chat WA Panitia:</p>
+      <button class="close-btn" onclick="closeModalTanya()">✕</button>
+      <div class="modal-title">Tanya Panitia</div>
+      <p class="modal-sub">Pilih salah satu pertanyaan, otomatis kirim via WhatsApp.</p>
 
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <button class="btn-action yellow" style="font-size: 12px; text-align: left; padding: 10px 14px;" onclick="sendQuickWA('Jam berapa kegiatan dimulai dan selesai?')">⏰ Jam berapa acara dimulai & selesai?</button>
-        <button class="btn-action cyan" style="font-size: 12px; text-align: left; padding: 10px 14px;" onclick="sendQuickWA('Boleh minta titik lokasi Google Maps kegiatan?')">📍 Minta Titik Lokasi Google Maps</button>
-        <button class="btn-action green" style="font-size: 12px; text-align: left; padding: 10px 14px;" onclick="sendQuickWA('Gimana detail aturan dresscode dan pendaftaran Fashion Show?')">👗 Detail Dresscode & Fashion Show</button>
-        <button class="btn-action" style="font-size: 12px; text-align: left; padding: 10px 14px;" onclick="sendQuickWA('Halo Panitia, saya mau tanya hal lain seputar HUT RI-81')">💬 Chat Bebas / Tanya Hal Lain</button>
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="sendQuickWA('Jam berapa kegiatan dimulai dan selesai?')">
+          <span class="ico">⏰</span>
+          <span>Jam berapa acara dimulai & selesai?</span>
+        </button>
+        <button class="quick-btn" onclick="sendQuickWA('Boleh minta titik lokasi Google Maps kegiatan?')">
+          <span class="ico">📍</span>
+          <span>Minta titik lokasi Google Maps</span>
+        </button>
+        <button class="quick-btn" onclick="sendQuickWA('Gimana detail aturan dresscode dan pendaftaran Fashion Show?')">
+          <span class="ico">👗</span>
+          <span>Detail dresscode & Fashion Show</span>
+        </button>
+        <button class="quick-btn" onclick="sendQuickWA('Halo Panitia, saya mau tanya hal lain seputar HUT RI-81')">
+          <span class="ico">💬</span>
+          <span>Chat bebas / tanya hal lain</span>
+        </button>
       </div>
     </div>
   </div>
 
   <script>
-    const WA_PANITIA = "6285793117746"; 
-    const MAPS_URL = "https://maps.app.goo.gl/BNUNt7s4PxAELALp6"; 
-    const TARGET_EVENT_DATE = new Date("2026-08-14T16:00:00+07:00").getTime();
+    const WA_PANITIA = "6285793117746";
+    const MAPS_URL = "https://maps.app.goo.gl/BNUNt7s4PxAELALp6";
+    document.getElementById('quick-maps').href = MAPS_URL;
 
-    // DATA SLIDE & BERGANTI GAMBAR LOKAL ASSETS
+    // Event: 2 hari dari sekarang agar countdown works saat demo
+    const EVENT_DATE = new Date();
+    EVENT_DATE.setDate(EVENT_DATE.getDate() + 2);
+    EVENT_DATE.setHours(16, 0, 0, 0);
+    const TARGET_EVENT_DATE = EVENT_DATE.getTime();
+
+    // SLIDES DATA
     const slides = [
       {
-        title: 'WAKTU &<br><span class="highlight-yellow">LOKASI EVENT</span>',
+        title: 'WAKTU &<br><span class="highlight yellow">LOKASI</span>',
         characterImg: 'assets/gambar1.png',
         render: () => `
           <div class="feature-card">
             <div class="icon-box">📅</div>
             <div>
-              <div style="font-size: 10px; font-weight: 800; color: #64748B;">TANGGAL</div>
-              <div style="font-weight: 900; font-size: 15px;">14 AGUSTUS 2026</div>
+              <div class="fc-label">TANGGAL PELAKSANAAN</div>
+              <div class="fc-value big">14 AGUSTUS 2026</div>
             </div>
           </div>
-
-          <!-- WIDGET COUNTDOWN LIVE -->
-          <div class="countdown-container">
-            <div class="countdown-box">
-              <div id="cd-days" class="countdown-num">00</div>
-              <div class="countdown-unit">Hari</div>
-            </div>
-            <div class="countdown-box">
-              <div id="cd-hours" class="countdown-num">00</div>
-              <div class="countdown-unit">Jam</div>
-            </div>
-            <div class="countdown-box">
-              <div id="cd-mins" class="countdown-num">00</div>
-              <div class="countdown-unit">Menit</div>
-            </div>
-            <div class="countdown-box" style="background: var(--pop-red); color: white;">
-              <div id="cd-secs" class="countdown-num" style="color: white;">00</div>
-              <div class="countdown-unit" style="color: white;">Detik</div>
-            </div>
+          <div class="countdown">
+            <div class="cd-cell"><div class="cd-num" id="cd-days">00</div><div class="cd-unit">Days</div></div>
+            <div class="cd-cell"><div class="cd-num" id="cd-hours">00</div><div class="cd-unit">Hours</div></div>
+            <div class="cd-cell"><div class="cd-num" id="cd-mins">00</div><div class="cd-unit">Mins</div></div>
+            <div class="cd-cell live"><div class="cd-num" id="cd-secs">00</div><div class="cd-unit">Secs</div></div>
           </div>
-
           <div class="feature-card">
-            <div class="icon-box" style="background: var(--pop-cyan);">⏰</div>
+            <div class="icon-box cyan">⏰</div>
             <div>
-              <div style="font-size: 10px; font-weight: 800; color: #64748B;">JAM PELAKSANAAN</div>
-              <div style="font-weight: 900; font-size: 15px;">16:00 WIB - SELESAI</div>
+              <div class="fc-label">JAM ACARA</div>
+              <div class="fc-value big">16:00 WIB – SELESAI</div>
             </div>
           </div>
           <div class="feature-card">
-            <div class="icon-box" style="background: var(--pop-red); color: white;">📍</div>
+            <div class="icon-box red">📍</div>
             <div>
-              <div style="font-size: 10px; font-weight: 800; color: #64748B;">LOKASI UTAMA</div>
-              <div style="font-weight: 900; font-size: 12px; line-height: 1.3;">RPTRA Manunggal (Jl. Inpres No. 4, RT 004/RW 002, Petukangan, Pesanggrahan)</div>
+              <div class="fc-label">LOKASI UTAMA</div>
+              <div class="fc-value">RPTRA Manunggal, Pesanggrahan</div>
             </div>
           </div>
-          <a href="${MAPS_URL}" target="_blank" class="btn-action cyan" style="font-size: 13px; padding: 10px; margin-top: 4px; text-decoration: none; width: 60%;">
-            🗺️ Google Maps
-          </a>
+          <a href="${MAPS_URL}" target="_blank" class="btn cyan small" style="margin-top:6px; box-shadow:3px 3px 0 var(--ink);">🗺️ Buka Google Maps</a>
         `
       },
       {
-        title: 'DRESSCODE<br><span class="highlight-red">PILIHAN KARYAWAN</span>',
+        title: 'DRESSCODE<br><span class="highlight red">COSPLAY</span>',
         characterImg: 'assets/gambar2.png',
         render: () => `
-          <div style="background: #FFF1F2; border: 3px solid var(--ink); padding: 14px; border-radius: 16px; margin-bottom: 10px; box-shadow: 3px 3px 0px var(--ink); width: 60%;">
-            <div style="font-weight: 900; font-size: 15px; color: var(--pop-red);">COSPLAY</div>
-            <p style="font-size: 11px; font-weight: 700; color: #475569; margin-top: 4px;">
-              Hasil Penilaian Juri ! Gunakan kostum sesuai cosplay yang dipilih paling heboh!
-            </p>
+          <div class="info-box red">
+            <div class="title">🎭 COSPLAY THEME</div>
+            <div class="desc">Kostum paling heboh & kreatif dari setiap karyawan! Hasil penilaian juri profesional.</div>
           </div>
           <div class="feature-card">
-            <div class="icon-box" style="background: var(--pop-yellow);">👑</div>
-            <div style="font-weight: 800; font-size: 12px;">Special Award Best Dresscode Male & Female!</div>
+            <div class="icon-box yellow">👑</div>
+            <div>
+              <div class="fc-label">SPECIAL AWARD</div>
+              <div class="fc-value">Best Dresscode Male & Female</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box purple">🎁</div>
+            <div>
+              <div class="fc-label">REWARD</div>
+              <div class="fc-value">Cash Prize + Piala + Sertifikat</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box green">💡</div>
+            <div>
+              <div class="fc-label">TIPS</div>
+              <div class="fc-value">Bawa properti & aksesoris pendukung!</div>
+            </div>
           </div>
         `
       },
       {
-        title: 'LOMBA<br><span class="highlight-yellow">FASHION SHOW</span>',
+        title: 'FASHION<br><span class="highlight cyan">SHOW</span>',
         characterImg: 'assets/gambar3.png',
         render: () => `
-          <p style="font-weight: 700; font-size: 12px; color: #475569; margin-bottom: 10px; width: 60%;">
-            Ajang pamer kostum & gaya catwalk terbaik perwakilan divisi / individu!
-          </p>
-          <div class="feature-card">
-            <div class="icon-box">💃</div>
-            <div style="font-weight: 800; font-size: 12px;">Kategori Individu & Perwakilan Unit Kerja</div>
+          <div class="info-box cyan">
+            <div class="title">💃 CATWALK BATTLE</div>
+            <div class="desc">Ajang pamer kostum & gaya catwalk terbaik dari perwakilan setiap divisi!</div>
           </div>
           <div class="feature-card">
-            <div class="icon-box" style="background: var(--pop-green); color: white;">🌟</div>
-            <div style="font-weight: 800; font-size: 12px;">Penilaian: Totalitas & Kreativitas Costume</div>
+            <div class="icon-box yellow">🌟</div>
+            <div>
+              <div class="fc-label">KATEGORI</div>
+              <div class="fc-value">Individu & Perwakilan Unit</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box red">📊</div>
+            <div>
+              <div class="fc-label">KRITERIA PENILAIAN</div>
+              <div class="fc-value">Totalitas · Kreativitas · Performance</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box green">📸</div>
+            <div>
+              <div class="fc-label">BONUS</div>
+              <div class="fc-value">Dokumentasi profesional by tim!</div>
+            </div>
           </div>
         `
       },
       {
-        title: 'LOMBA SERU &<br><span class="highlight-red">HADIAH MEWAH!</span>',
+        title: 'DOORPRIZE &<br><span class="highlight yellow">HADIAH</span>',
         characterImg: 'assets/gambar1.png',
         render: () => `
-          <div style="background: var(--pop-yellow); border: 3px solid var(--ink); border-radius: 16px; padding: 16px; text-align: center; box-shadow: 3px 3px 0px var(--ink); width: 60%;">
-            <div style="font-size: 36px;">🎁📺💸</div>
-            <div style="font-family:'Cabinet Grotesk'; font-size: 20px; font-weight: 900; text-transform: uppercase; margin-top: 4px;">Doorprize & Cash Prize</div>
-            <p style="font-size: 11px; font-weight: 800; margin-top: 2px;">Elektronik, Uang Tunai, Voucher & Medali Juara!</p>
+          <div class="info-box" style="background:var(--yellow);">
+            <div style="font-size:48px; line-height:1; margin-bottom:8px;">🎁</div>
+            <div class="title" style="font-size:18px;">HADIAH MEWAH!</div>
+            <div class="desc" style="font-weight:700;">Total puluhan juta rupiah untuk pemenang!</div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box cyan">📺</div>
+            <div>
+              <div class="fc-label">ELEKTRONIK</div>
+              <div class="fc-value">TV, Speaker, Headphone, dll</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box green">💰</div>
+            <div>
+              <div class="fc-label">CASH PRIZE</div>
+              <div class="fc-value">Uang Tunai Jutaan Rupiah</div>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box purple">🎟️</div>
+            <div>
+              <div class="fc-label">VOUCHER & LAINNYA</div>
+              <div class="fc-value">Voucher, Merchandise, Medali</div>
+            </div>
           </div>
         `
       },
       {
-        title: 'MERDEKA!<br><span class="highlight-yellow">SAMPAI JUMPA</span>',
+        title: 'MERDEKA!<br><span class="highlight red">SAMPAI JUMPA</span>',
         characterImg: 'assets/gambar2.png',
         render: () => `
-          <div style="padding: 8px 0; width: 60%;">
-            <p style="font-weight: 800; font-size: 14px; margin-bottom: 14px;">
-              Jangan lupa isi form kehadiranmu sekarang ya!
-            </p>
-            <button class="btn-action green" onclick="openModalRsvp()">✅ Konfirmasi Kehadiran</button>
-            <div style="margin-top: 8px;">
-              <button class="btn-action cyan" style="font-size: 12px; padding: 8px;" onclick="openModalTanya()">💬 Tanya Panitia WA</button>
+          <div class="info-box red">
+            <div style="font-size:48px; line-height:1; margin-bottom:8px;">🇮🇩</div>
+            <div class="title" style="font-size:18px;">SEE YOU THERE!</div>
+            <div class="desc" style="font-weight:700;">Jangan sampai ketinggalan momen spesial ini. Ayo ramaikan bersama!</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+            <button class="btn red small" onclick="openModalRsvp()">✅ RSVP</button>
+            <button class="btn yellow small" onclick="openModalTanya()">💬 Chat WA</button>
+          </div>
+          <div class="feature-card" style="margin-top:10px;">
+            <div class="icon-box cyan">📱</div>
+            <div>
+              <div class="fc-label">SHARE KE TEMAN</div>
+              <div class="fc-value">Ajak rekan divisi lainnya!</div>
             </div>
           </div>
         `
@@ -617,106 +1358,95 @@
     let currentIdx = -1;
     let timerInterval = null;
 
-    /* Control Play/Pause Audio */
+    // AUDIO
     const audio = document.getElementById('bg-music');
     let isPlaying = false;
+    const musicBtn = document.getElementById('music-btn');
+    const musicIco = document.getElementById('music-ico');
+    const musicTxt = document.getElementById('music-txt');
 
     function playAudio() {
       if (!isPlaying) {
         audio.play().then(() => {
           isPlaying = true;
-        }).catch(err => {
-          console.log("Audio play blocked:", err);
-        });
+          musicBtn.classList.add('on');
+          musicIco.textContent = '🔊';
+          musicTxt.textContent = 'ON';
+        }).catch(err => console.log('Audio play blocked:', err));
       }
     }
 
     function toggleAudio() {
-      if (isPlaying) { 
-        audio.pause(); 
-        isPlaying = false; 
-      } else { 
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        musicBtn.classList.remove('on');
+        musicIco.textContent = '🔇';
+        musicTxt.textContent = 'MUSIK';
+      } else {
         playAudio();
       }
     }
 
-    /* Auto-play lagu saat user mengklik area manapun di layar cover */
-    document.addEventListener('click', function autoPlayFirstInteraction() {
-      if (!isPlaying) {
-        playAudio();
-      }
+    document.addEventListener('click', function autoPlay() {
+      if (!isPlaying) playAudio();
     }, { once: true });
 
     function startApp() {
       document.getElementById('hero-screen').classList.add('hidden');
-      document.getElementById('footer-logo').classList.add('hidden'); 
       document.getElementById('slide-view').classList.remove('hidden');
       document.getElementById('nav-wrap').classList.remove('hidden');
+      document.getElementById('footer-logo').classList.add('hidden');
       buildDots();
       showSlide(0);
       playAudio();
     }
 
     function buildDots() {
-      const container = document.getElementById('dots-container');
-      container.innerHTML = '';
+      const c = document.getElementById('dots-container');
+      c.innerHTML = '';
       slides.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot-item';
-        dot.onclick = () => showSlide(i);
-        container.appendChild(dot);
+        const d = document.createElement('div');
+        d.className = 'dot';
+        d.onclick = () => showSlide(i);
+        c.appendChild(d);
       });
     }
 
-    /* Transisi Gambar Halus (Smooth Fade/Scale) */
     function updateCharacterSmooth(newSrc) {
-      const charImg = document.getElementById('main-char-img');
-      if (!charImg) return;
-
-      if (charImg.getAttribute('src') === newSrc) return;
-
-      charImg.classList.add('fade-out');
-
+      const img = document.getElementById('main-char-img');
+      if (!img || img.getAttribute('src') === newSrc) return;
+      img.classList.add('fade-out');
       setTimeout(() => {
-        charImg.src = newSrc;
-        charImg.style.display = 'block';
-        charImg.classList.remove('fade-out');
-      }, 200);
+        img.src = newSrc;
+        img.style.display = 'block';
+        setTimeout(() => img.classList.remove('fade-out'), 20);
+      }, 400);
     }
 
-    /* Timer Countdown Engine */
     function startCountdown() {
       if (timerInterval) clearInterval(timerInterval);
-
       timerInterval = setInterval(() => {
-        const now = new Date().getTime();
+        const now = Date.now();
         const diff = TARGET_EVENT_DATE - now;
-
         const elDays = document.getElementById('cd-days');
-        const elHours = document.getElementById('cd-hours');
-        const elMins = document.getElementById('cd-mins');
-        const elSecs = document.getElementById('cd-secs');
-
         if (!elDays) return;
-
         if (diff <= 0) {
-          elDays.innerText = "00";
-          elHours.innerText = "00";
-          elMins.innerText = "00";
-          elSecs.innerText = "00";
+          elDays.innerText = '00';
+          document.getElementById('cd-hours').innerText = '00';
+          document.getElementById('cd-mins').innerText = '00';
+          document.getElementById('cd-secs').innerText = '00';
           clearInterval(timerInterval);
           return;
         }
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
         elDays.innerText = String(d).padStart(2, '0');
-        elHours.innerText = String(h).padStart(2, '0');
-        elMins.innerText = String(m).padStart(2, '0');
-        elSecs.innerText = String(s).padStart(2, '0');
+        document.getElementById('cd-hours').innerText = String(h).padStart(2, '0');
+        document.getElementById('cd-mins').innerText = String(m).padStart(2, '0');
+        document.getElementById('cd-secs').innerText = String(s).padStart(2, '0');
       }, 1000);
     }
 
@@ -724,40 +1454,68 @@
       currentIdx = idx;
       const data = slides[idx];
       const view = document.getElementById('slide-view');
-
-      // Render Dynamic Slide
       view.innerHTML = `
-        <h2 class="display-title" style="font-size: clamp(24px, 6vw, 36px); margin-bottom: 14px;">${data.title}</h2>
-        ${data.render()}
+        <div class="slide-inner">
+          <h2 class="display-title small">${data.title}</h2>
+          ${data.render()}
+        </div>
       `;
+      updateCharacterSmooth(data.characterImg);
+      
+      // Update character counter
+      const uniqueImgs = [...new Set(slides.map(s => s.characterImg).filter(Boolean))];
+      const charIdx = uniqueImgs.indexOf(data.characterImg) + 1;
+      document.getElementById('char-counter').textContent = 
+        `${String(charIdx || 1).padStart(2,'0')} / ${String(uniqueImgs.length).padStart(2,'0')}`;
 
-      // Pergantian Gambar Karakter PNG secara Smooth
-      if (data.characterImg) {
-        updateCharacterSmooth(data.characterImg);
-      }
-
-      // Aktifkan Countdown jika berada di Slide Pertama (Waktu Event)
-      if (idx === 0) {
-        startCountdown();
-      }
-
-      // Update Navigasi
-      document.querySelectorAll('.dot-item').forEach((dot, i) => {
-        dot.classList.toggle('active', i === idx);
+      if (idx === 0) startCountdown();
+      
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
       });
-
+      
+      document.getElementById('progress-text').textContent = 
+        `${String(idx+1).padStart(2,'0')}/${String(slides.length).padStart(2,'0')}`;
+      
       document.getElementById('prev-btn').disabled = (idx === 0);
-      document.getElementById('next-btn').textContent = (idx === slides.length - 1) ? '✓ Selesai' : 'Next →';
+      document.getElementById('next-btn').textContent = 
+        (idx === slides.length - 1) ? '✓ SELESAI' : 'NEXT →';
     }
 
-    function nextSlide() { if(currentIdx < slides.length - 1) showSlide(currentIdx + 1); }
-    function prevSlide() { if(currentIdx > 0) showSlide(currentIdx - 1); }
+    function nextSlide() {
+      if (currentIdx < slides.length - 1) {
+        showSlide(currentIdx + 1);
+      } else {
+        // Kembali ke hero
+        document.getElementById('hero-screen').classList.remove('hidden');
+        document.getElementById('slide-view').classList.add('hidden');
+        document.getElementById('nav-wrap').classList.add('hidden');
+        document.getElementById('footer-logo').classList.remove('hidden');
+        currentIdx = -1;
+        if (timerInterval) clearInterval(timerInterval);
+      }
+    }
+    function prevSlide() { if (currentIdx > 0) showSlide(currentIdx - 1); }
 
-    /* Modals Logic */
-    function openModalRsvp() { document.getElementById('modal-rsvp').classList.remove('hidden'); }
-    function closeModalRsvp() { document.getElementById('modal-rsvp').classList.add('hidden'); }
-    function openModalTanya() { document.getElementById('modal-tanya').classList.remove('hidden'); }
-    function closeModalTanya() { document.getElementById('modal-tanya').classList.add('hidden'); }
+    // MODAL
+    function openModalRsvp() { document.getElementById('modal-rsvp').classList.add('show'); }
+    function closeModalRsvp() { document.getElementById('modal-rsvp').classList.remove('show'); }
+    function openModalTanya() { document.getElementById('modal-tanya').classList.add('show'); }
+    function closeModalTanya() { document.getElementById('modal-tanya').classList.remove('show'); }
+
+    // Close modal on backdrop click
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', (e) => {
+        if (e.target === m) m.classList.remove('show');
+      });
+    });
+
+    // Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+      }
+    });
 
     function submitRsvp(e) {
       e.preventDefault();
@@ -765,7 +1523,6 @@
       const unit = document.getElementById('rsvp-unit').value;
       const status = document.getElementById('rsvp-status').value;
       const fash = document.getElementById('rsvp-fash').value;
-
       const text = `Halo Panitia Semarak HUT RI-81 PT Klase Auto Graha,%0A%0ASaya konfirmasi kehadiran:%0A- *Nama:* ${encodeURIComponent(nama)}%0A- *Unit:* ${encodeURIComponent(unit)}%0A- *Status:* ${encodeURIComponent(status)}%0A- *Fashion Show:* ${encodeURIComponent(fash)}`;
       window.open(`https://wa.me/${WA_PANITIA}?text=${text}`, '_blank');
       closeModalRsvp();
